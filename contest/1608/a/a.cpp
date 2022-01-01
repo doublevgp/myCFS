@@ -36,14 +36,38 @@ template <typename T>
 #define se second
 
 const int N = 1e5 + 5;
-
+int vis[10005];
+vector<int> primes;
+void init(){
+  for(int i = 0; i < 10000; i++)
+    vis[i] = true;
+  vis[0] = vis[1] = false;
+  for(int i = 2; i < 10000; i++){
+    if(vis[i] == true){
+      primes.pb(i);
+      for(int j = 0; j < (int)primes.size(); j++){
+        if(i * primes[j] > 10000)
+          break;
+        vis[i * primes[j]] = false;
+        if(i % primes[j] == 0)
+          break;
+      }
+    }
+  }
+}
 void solve() {
-
+  int n;
+  cin >> n;
+  for(int i = 0; i < n; i++){
+    cout << primes[i] << ' ';
+  }
+  cout << endl;
 }
 
 int main() {
   ios::sync_with_stdio(false);
   cin.tie(0);
+  init();
   int t;
   cin >> t;
   while (t--) {
